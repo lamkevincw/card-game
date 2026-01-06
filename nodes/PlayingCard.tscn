@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmgx5lpn0ccvj"]
+
+[ext_resource type="Texture2D" uid="uid://b4vc7p6bdnp2d" path="res://assets/playing-cards/2_of_clubs.png" id="1_4x2vw"]
+[ext_resource type="Script" uid="uid://17ipbkr4j1r8" path="res://nodes/playing_card.gd" id="2_hahod"]
+
+[node name="PlayingCard" type="TextureRect"]
+texture = ExtResource("1_4x2vw")
+expand_mode = 3
+script = ExtResource("2_hahod")
+cardTexture = ExtResource("1_4x2vw")
