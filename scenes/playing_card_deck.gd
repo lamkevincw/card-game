@@ -12,10 +12,11 @@ var full_deck = [
 ]
 var progressing : bool = false
 
+var card_collection = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	card_collection.resize(full_deck.size())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -24,10 +25,15 @@ func _process(delta: float) -> void:
 		if (drawProgressBar.value == 100):
 			progressing = false
 
-
-
 func drawCard():
-	var card = full_deck[randi() % full_deck.size()]
+	var cardIndex = randi() % full_deck.size()
+	var card = full_deck[cardIndex]
+	var collected = (card_collection[cardIndex] != null)
+	
+	card_collection[cardIndex] = card
+	
+	print(card_collection)
+	
 	var cardDict = {"value": card.split(" ")[1], "suit": card.split(" ")[0]}
 	match cardDict.value:
 		"1":
@@ -44,5 +50,10 @@ func drawCard():
 	newCard.suit = cardDict.suit
 	var newTexture = load("res://assets/playing-cards/" + cardDict.value.to_lower() + "_of_" + cardDict.suit.to_lower() + ".png")
 	newCard.set_texture(newTexture)
+	
+	if (collected):
+		newCard.modulate = Color.from_hsv(0, 0, 0.4, 1)
+	
+	
 	
 	cardContainer.add_child(newCard)
