@@ -1,4 +1,4 @@
-extends TextureRect
+extends PanelContainer
 
 @export_range(1, 13) var value : int
 @export_enum("Spades", "Clubs", "Hearts", "Diamonds") var suit : String = "Spades"
@@ -12,3 +12,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func set_texture(newTexture : Texture):
+	cardTexture = newTexture
+	$PlayingCardTexture.set_texture(newTexture)
+
+func showRefund():
+	$RefundLabel.show()

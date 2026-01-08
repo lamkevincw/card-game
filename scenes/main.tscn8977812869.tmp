@@ -1,0 +1,164 @@
+[gd_scene load_steps=4 format=3 uid="uid://cctack103hm10"]
+
+[ext_resource type="Script" uid="uid://c80nk2p1oh2xy" path="res://scenes/main.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://1ery3dxyrxwc" path="res://scenes/playing_card_deck.gd" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://c700bkkagdtjb" path="res://scenes/main_game_ui.gd" id="3_sugp2"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0wfyh")
+
+[node name="PlayingCardDeck" type="Node" parent="." node_paths=PackedStringArray("cardContainer", "drawProgressBar", "playCardsCollection")]
+script = ExtResource("2_jyhfs")
+cardContainer = NodePath("../CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/CardContainer")
+drawProgressBar = NodePath("../CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/DrawProgressBar")
+playCardsCollection = NodePath("../CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/CollectionContainer/VBoxContainer/PlayCardsGrid")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+z_index = -4096
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Money: "
+
+[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "$0"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Other: "
+
+[node name="Label4" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "0"
+
+[node name="MainGameUI" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_sugp2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Tabs"
+
+[node name="PlayCardsButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Playing Cards"
+
+[node name="CollectionButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Collection"
+
+[node name="PlayCardsContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer"]
+layout_mode = 2
+
+[node name="CardGameLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Card Game"
+horizontal_alignment = 1
+
+[node name="CardContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+alignment = 1
+
+[node name="DrawProgressBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+
+[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keep Card"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="DrawButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Draw Cards"
+
+[node name="CollectionContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/CollectionContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CardGameLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/CollectionContainer/VBoxContainer"]
+layout_mode = 2
+text = "Collection"
+horizontal_alignment = 1
+
+[node name="PlayCardsProgressLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/CollectionContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0% Collected"
+horizontal_alignment = 1
+
+[node name="PlayCardsGrid" type="GridContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/CollectionContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+columns = 13
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/MarginContainer/DrawButton" to="." method="_on_draw_button_pressed"]

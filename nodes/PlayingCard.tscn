@@ -3,8 +3,22 @@
 [ext_resource type="Texture2D" uid="uid://b4vc7p6bdnp2d" path="res://assets/playing-cards/2_of_clubs.png" id="1_4x2vw"]
 [ext_resource type="Script" uid="uid://17ipbkr4j1r8" path="res://nodes/playing_card.gd" id="2_hahod"]
 
-[node name="PlayingCard" type="TextureRect"]
+[node name="PlayingCard" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_hahod")
+
+[node name="PlayingCardTexture" type="TextureRect" parent="."]
+layout_mode = 2
 texture = ExtResource("1_4x2vw")
 expand_mode = 3
-script = ExtResource("2_hahod")
-cardTexture = ExtResource("1_4x2vw")
+
+[node name="RefundLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Refund $1"
+horizontal_alignment = 1

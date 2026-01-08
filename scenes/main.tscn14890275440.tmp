@@ -12,6 +12,7 @@ script = ExtResource("1_0wfyh")
 [node name="Money" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_jyhfs")
+player_money = 10
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -96,11 +97,6 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Work"
 
-[node name="AchievementButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Achievements"
-
 [node name="PlayCardsContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -180,7 +176,6 @@ columns = 13
 
 [node name="WorkContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -206,13 +201,6 @@ custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Search for Money on Ground"
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "$15"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="SearchMoneyProgressBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -236,30 +224,6 @@ vertical_alignment = 1
 unique_name_in_owner = true
 wait_time = 10.0
 one_shot = true
-
-[node name="AchievementContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/AchievementContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="AchievementLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/AchievementContainer/VBoxContainer"]
-layout_mode = 2
-text = "Achievements"
-horizontal_alignment = 1
-
-[node name="AchievementProgressLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/AchievementContainer/VBoxContainer"]
-layout_mode = 2
-text = "0.0% Collected"
-horizontal_alignment = 1
-
-[node name="AchievementGrid" type="GridContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/AchievementContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-columns = 10
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/MarginContainer/DrawButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" method="_on_draw_button_pressed"]
 [connection signal="timeout" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/DrawCardCooldownTimer" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" method="_on_draw_card_cooldown_timer_timeout"]
