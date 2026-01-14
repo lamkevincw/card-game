@@ -17,6 +17,7 @@ var full_deck = [
 
 var card_collection : Array[String]
 var collectionProgress : int = 0
+var collectedSuits : Array[bool] = [false, false, false, false] # Clubs, Diamonds, Hearts, Spades
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,16 +38,19 @@ func drawCard():
 	playCardsCollection.get_children()[cardIndex].modulate = (Color.from_hsv(0, 0, 1, 1))
 	
 	var newCard = instantiateCard(card)
-	
+	print(card)
 	# If collected, grey out
 	if (collected):
 		newCard.get_child(0).modulate = Color.from_hsv(0, 0, 0.4, 1)
 		newCard.showRefund()
 		%Money.change_money(refundValue)
+		%Statistics.refunds += 1
 	else:
 		collectionProgress += 1
-	
 	%PlayCardsProgressLabel.text = str(roundf(float(collectionProgress) / float(full_deck.size()) * 1000.0) / 10.0) + "% Collected"
+	
+	%Statistics.draws += 1
+	checkAchievements()
 	
 	cardContainer.add_child(newCard)
 
@@ -75,5 +79,26 @@ func initializeCollection():
 		var newCard = instantiateCard(card)
 		newCard.modulate = Color.from_hsv(0, 0, 0.4, 1)
 		playCardsCollection.add_child(newCard)
-		
-	print(playCardsCollection)
+
+func checkAchievements():
+	# Check how many suits are collected
+	var suitsCollected = 0
+	for i in range(collectedSuits.size()):
+		if !collectedSuits[i]:
+			var filledSuit = true
+			for j in range(i * 13, 13 + i * 13):
+				if card_collection[j] == "":
+					filledSuit = false
+			collectedSuits[i] = filledSuit
+		if collectedSuits[i]:
+			suitsCollected += 1
+	match suitsCollected:
+		1:
+			%AchievementContainer.setAchievement(2)
+		2:
+			%AchievementContainer.setAchievement(3)
+			%PlayCardsContainer.set_card_cooldown(true)
+		3:
+			%AchievementContainer.setAchievement(4)
+		4:
+			%AchievementContainer.setAchievement(6)

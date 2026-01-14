@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dmtkofp0cn2ko" path="res://nodes/achievement_tile.gd" id="1_wltwi"]
 
 [node name="AchievementContainer" type="PanelContainer"]
+modulate = Color(0.3, 0.3, 0.3, 1)
 custom_minimum_size = Vector2(100, 100)
 anchors_preset = 15
 anchor_right = 1.0

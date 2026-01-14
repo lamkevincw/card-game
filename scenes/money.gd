@@ -25,7 +25,7 @@ func change_money(delta: int):
 
 func money_error():
 	var error = error_message_scene.instantiate()
-	get_parent().get_child(1).add_child(error)
+	get_node("/root/Main/CanvasLayer").add_child(error)
 
 func _on_search_money_button_pressed() -> void:
 	%SearchMoneyTimer.start()

@@ -2,6 +2,10 @@ extends PanelContainer
 
 @export var cards_to_draw : int = 5
 @export var draw_cost : int = 10
+@export var card_base_cooldown : float = 5.0
+
+# Achievements
+var firstDraw : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,8 +43,13 @@ func clearCards():
 	for child in children:
 		child.free()
 
+func set_card_cooldown(twoSuits: bool):
+	# Achievements
+	%DrawCardCooldownTimer.wait_time = card_base_cooldown - (1.0 * int(twoSuits))
+
 func _on_draw_timer_timeout() -> void:
 	$PlayingCardDeck.drawCard()
+	%Statistics.checkAchievements()
 
 func _on_draw_card_cooldown_timer_timeout() -> void:
 	%DrawButton.disabled = false

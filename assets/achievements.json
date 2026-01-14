@@ -1,23 +1,58 @@
 [
 	{
 		"id": "0",
-		"name": "1 Suit",
-		"description": "Completed 1 Suit",
-		"bonus": "test",
-		"tooltip": "test1"
+		"name": "First Pull",
+		"description": "Pulled Cards for the First Time",
+		"bonus": "Unlocked Collection\nUnlocked Achievements",
+		"achieved": false,
+		"tooltip": ""
+	},
+	{
+		"id": "0",
+		"name": "Getting Started",
+		"description": "Pulled Cards 3 Times",
+		"bonus": "Unlocked Work",
+		"achieved": false,
+		"tooltip": ""
 	},
 	{
 		"id": "1",
-		"name": "3 Suits",
-		"description": "Completed 3 Suits",
+		"name": "1 Suit",
+		"description": "Completed 1 Suit",
 		"bonus": "test",
-		"tooltip": "test2"
+		"achieved": false,
+		"tooltip": "test1"
 	},
 	{
 		"id": "2",
+		"name": "2 Suits",
+		"description": "Completed 2 Suits",
+		"bonus": "Reduce Card Cooldown by 1 Second",
+		"achieved": false,
+		"tooltip": "test3"
+	},
+	{
+		"id": "3",
+		"name": "3 Suits",
+		"description": "Completed 3 Suits",
+		"bonus": "test",
+		"achieved": false,
+		"tooltip": "test2"
+	},
+	{
+		"id": "4",
+		"name": "One Left",
+		"description": "One Card Until Full Playing Card Collection",
+		"bonus": "You'll get that last one soon",
+		"achieved": false,
+		"tooltip": "test3"
+	},
+	{
+		"id": "5",
 		"name": "Full Deck",
 		"description": "Completed Full Deck",
-		"bonus": "test",
+		"bonus": "Unlocked Rarity\nUnlocked Automation",
+		"achieved": false,
 		"tooltip": "test3"
 	}
 ]
