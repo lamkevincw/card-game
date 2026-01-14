@@ -1,0 +1,23 @@
+[
+	{
+		"id": "0",
+		"name": "1 Suit",
+		"description": "Completed 1 Suit",
+		"bonus": "test",
+		"tooltip": "test1"
+	},
+	{
+		"id": "1",
+		"name": "3 Suits",
+		"description": "Completed 3 Suits",
+		"bonus": "test",
+		"tooltip": "test2"
+	},
+	{
+		"id": "2",
+		"name": "Full Deck",
+		"description": "Completed Full Deck",
+		"bonus": "test",
+		"tooltip": "test3"
+	}
+]
