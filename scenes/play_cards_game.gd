@@ -43,13 +43,13 @@ func clearCards():
 	for child in children:
 		child.free()
 
-func set_card_cooldown(twoSuits: bool):
+func set_card_cooldown(subtract: float):
 	# Achievements
-	%DrawCardCooldownTimer.wait_time = card_base_cooldown - (1.0 * int(twoSuits))
+	%DrawCardCooldownTimer.wait_time = card_base_cooldown - subtract
 
 func _on_draw_timer_timeout() -> void:
 	$PlayingCardDeck.drawCard()
-	%Statistics.checkAchievements()
+	%StatisticsContainer.checkAchievements()
 
 func _on_draw_card_cooldown_timer_timeout() -> void:
 	%DrawButton.disabled = false

@@ -19,6 +19,10 @@ var card_collection : Array[String]
 var collectionProgress : int = 0
 var collectedSuits : Array[bool] = [false, false, false, false] # Clubs, Diamonds, Hearts, Spades
 
+# Last One achievement (guaranteed last card after 30 cards)
+var onLastOne : bool = false
+var lastOneCounter : int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	card_collection.resize(full_deck.size())
@@ -29,7 +33,13 @@ func _process(delta: float) -> void:
 	pass
 
 func drawCard():
-	var cardIndex = randi() % full_deck.size()
+	# Random card, unless on last card
+	var cardIndex : int
+	if (onLastOne && lastOneCounter == int(30)):
+		cardIndex = card_collection.find("")
+	else:
+		cardIndex = randi() % full_deck.size()
+	
 	var card = full_deck[cardIndex]
 	var collected = (card_collection[cardIndex] != "") # Checks if card has been already collected
 	
@@ -44,12 +54,17 @@ func drawCard():
 		newCard.get_child(0).modulate = Color.from_hsv(0, 0, 0.4, 1)
 		newCard.showRefund()
 		%Money.change_money(refundValue)
-		%Statistics.refunds += 1
+		%StatisticsContainer.add_refunds(1)
+		%StatisticsContainer.add_refunds_earned(refundValue)
+		
+		if onLastOne:
+			lastOneCounter += 1
+			print(lastOneCounter)
 	else:
 		collectionProgress += 1
 	%PlayCardsProgressLabel.text = str(roundf(float(collectionProgress) / float(full_deck.size()) * 1000.0) / 10.0) + "% Collected"
 	
-	%Statistics.draws += 1
+	%StatisticsContainer.add_draws(1)
 	checkAchievements()
 	
 	cardContainer.add_child(newCard)
@@ -81,6 +96,8 @@ func initializeCollection():
 		playCardsCollection.add_child(newCard)
 
 func checkAchievements():
+	var oneSecCooldown : int = 0
+	
 	# Check how many suits are collected
 	var suitsCollected = 0
 	for i in range(collectedSuits.size()):
@@ -92,13 +109,35 @@ func checkAchievements():
 			collectedSuits[i] = filledSuit
 		if collectedSuits[i]:
 			suitsCollected += 1
-	match suitsCollected:
-		1:
-			%AchievementContainer.setAchievement(2)
-		2:
-			%AchievementContainer.setAchievement(3)
-			%PlayCardsContainer.set_card_cooldown(true)
-		3:
-			%AchievementContainer.setAchievement(4)
-		4:
-			%AchievementContainer.setAchievement(6)
+	
+	if (suitsCollected >= 2): # 2 suits collected
+		%AchievementContainer.setAchievement(3)
+		oneSecCooldown += 1
+	#match suitsCollected:
+		#1:
+			##%AchievementContainer.setAchievement(2)
+			##%PlayCardsContainer.set_card_cooldown(true, false, false)
+			#pass
+		#2:
+			#%AchievementContainer.setAchievement(3)
+			#oneSecCooldown += 1
+		#3:
+			##%AchievementContainer.setAchievement(4)
+			##%PlayCardsContainer.set_card_cooldown(true, true, true)
+			#pass
+		#4:
+			#%AchievementContainer.setAchievement(6)
+	
+	# Check collection progress
+	if (float(collectionProgress) / float(full_deck.size()) > 0.5):
+		%AchievementContainer.setAchievement(2)
+		oneSecCooldown += 1
+	if (collectionProgress == 51):
+		%AchievementContainer.setAchievement(4)
+		onLastOne = true
+	if (collectionProgress == 52):
+		%AchievementContainer.setAchievement(5)
+		onLastOne = false
+	
+	# Processes draw cooldown reduction
+	%PlayCardsContainer.set_card_cooldown(float(oneSecCooldown) * 1.0)

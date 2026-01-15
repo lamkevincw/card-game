@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cctack103hm10"]
+[gd_scene load_steps=10 format=3 uid="uid://cctack103hm10"]
 
 [ext_resource type="Script" uid="uid://c80nk2p1oh2xy" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://1ery3dxyrxwc" path="res://scenes/playing_card_deck.gd" id="2_jyhfs"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://cdonx5we46en0" path="res://scenes/statistics.gd" id="3_o6xl0"]
 [ext_resource type="Script" uid="uid://c700bkkagdtjb" path="res://scenes/main_game_ui.gd" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://db43na014rp3e" path="res://scenes/play_cards_game.gd" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://up8t1aiu06fn" path="res://scenes/upgrades.gd" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://cx05xjr8tdy5t" path="res://scenes/achievements.gd" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://cst86ta37j7nj" path="res://scenes/work.gd" id="6_tipki"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0wfyh")
@@ -15,10 +17,6 @@ script = ExtResource("1_0wfyh")
 unique_name_in_owner = true
 script = ExtResource("3_jyhfs")
 player_money = 1000
-
-[node name="Statistics" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("3_o6xl0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -94,6 +92,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Playing Cards"
 
+[node name="UpgradesButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrades"
+
 [node name="CollectionButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -113,11 +116,19 @@ layout_mode = 2
 disabled = true
 text = "Achievements"
 
+[node name="StatisticsButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Statistics"
+
 [node name="PlayCardsContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_tbgi4")
+card_base_cooldown = 2.1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer"]
 layout_mode = 2
@@ -163,6 +174,105 @@ unique_name_in_owner = true
 wait_time = 5.0
 one_shot = true
 
+[node name="UpgradesContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("6_85g3d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CardGameLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Upgrades"
+horizontal_alignment = 1
+
+[node name="UpgradesContainer" type="GridContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+columns = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+
+[node name="UnlockRarityButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Unlock
+Rarity"
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cost: $5"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+
+[node name="IncreaseRefundButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Increase Base
+Refund by $1"
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Cost: $50"
+horizontal_alignment = 1
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+
+[node name="DecreaseSearchCooldownButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer4"]
+layout_mode = 2
+text = "Decrease Money Searching
+Cooldown by 2 s"
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer4"]
+layout_mode = 2
+text = "Cost: $200"
+horizontal_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+
+[node name="DecreaseDrawCooldownButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Decrease Card Draw
+Cooldown by 1 s"
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Cost: $300"
+horizontal_alignment = 1
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+
+[node name="UnlockRarityButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer5"]
+layout_mode = 2
+text = "Unlock
+Rarity"
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer5"]
+layout_mode = 2
+text = "Cost: $500"
+horizontal_alignment = 1
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+
+[node name="IncreaseRarityButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer6"]
+layout_mode = 2
+text = "Increase Chance
+of Rare Cards by 5%"
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer6"]
+layout_mode = 2
+text = "Cost: $600"
+horizontal_alignment = 1
+
 [node name="CollectionContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
 unique_name_in_owner = true
 visible = false
@@ -195,6 +305,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("6_tipki")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer"]
 layout_mode = 2
@@ -218,7 +329,8 @@ custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Search for Money on Ground"
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer"]
+[node name="SearchMoneyValue" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 text = "$15"
@@ -251,6 +363,7 @@ one_shot = true
 
 [node name="AchievementContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("6_o6xl0")
@@ -276,7 +389,101 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 columns = 10
 
+[node name="StatisticsContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_o6xl0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Statistics"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TimePlayedContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/TimePlayedContainer"]
+layout_mode = 2
+text = "Time Played:"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/TimePlayedContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="TimePlayedLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/TimePlayedContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="CardsDrawnContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/CardsDrawnContainer"]
+layout_mode = 2
+text = "Total Cards Drawn:"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/CardsDrawnContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="CardsDrawnLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/CardsDrawnContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="MoneyEarnedContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/MoneyEarnedContainer"]
+layout_mode = 2
+text = "Total Money Earned:"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/MoneyEarnedContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="MoneyEarnedLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/MoneyEarnedContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="RefundCountContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/RefundCountContainer"]
+layout_mode = 2
+text = "Refunds Made:"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/RefundCountContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="RefundCountLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/RefundCountContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="RefundEarnedContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/RefundEarnedContainer"]
+layout_mode = 2
+text = "Refund $ Earned:"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/RefundEarnedContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="RefundEarnedLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/RefundEarnedContainer"]
+layout_mode = 2
+text = "0"
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/MarginContainer/DrawButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" method="_on_draw_button_pressed"]
 [connection signal="timeout" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/DrawCardCooldownTimer" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" method="_on_draw_card_cooldown_timer_timeout"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer/SearchMoneyButton" to="Money" method="_on_search_money_button_pressed"]
-[connection signal="timeout" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer/SearchMoneyTimer" to="Money" method="_on_search_money_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer/SearchMoneyButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_search_money_button_pressed"]
+[connection signal="timeout" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer/SearchMoneyTimer" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_search_money_timer_timeout"]
