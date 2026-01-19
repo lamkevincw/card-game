@@ -65,7 +65,7 @@ func drawCard():
 	%PlayCardsProgressLabel.text = str(roundf(float(collectionProgress) / float(full_deck.size()) * 1000.0) / 10.0) + "% Collected"
 	
 	%StatisticsContainer.add_draws(1)
-	checkAchievements()
+	%AchievementContainer.checkAchievements()
 	
 	cardContainer.add_child(newCard)
 
@@ -86,6 +86,7 @@ func instantiateCard(card: String):
 	newCard.suit = cardDict.suit
 	var newTexture = load("res://assets/playing-cards/" + cardDict.value.to_lower() + "_of_" + cardDict.suit.to_lower() + ".png")
 	newCard.set_texture(newTexture)
+	newCard.changeRefundLabel(refundValue)
 	
 	return newCard
 
@@ -95,49 +96,5 @@ func initializeCollection():
 		newCard.modulate = Color.from_hsv(0, 0, 0.4, 1)
 		playCardsCollection.add_child(newCard)
 
-func checkAchievements():
-	var oneSecCooldown : int = 0
-	
-	# Check how many suits are collected
-	var suitsCollected = 0
-	for i in range(collectedSuits.size()):
-		if !collectedSuits[i]:
-			var filledSuit = true
-			for j in range(i * 13, 13 + i * 13):
-				if card_collection[j] == "":
-					filledSuit = false
-			collectedSuits[i] = filledSuit
-		if collectedSuits[i]:
-			suitsCollected += 1
-	
-	if (suitsCollected >= 2): # 2 suits collected
-		%AchievementContainer.setAchievement(3)
-		oneSecCooldown += 1
-	#match suitsCollected:
-		#1:
-			##%AchievementContainer.setAchievement(2)
-			##%PlayCardsContainer.set_card_cooldown(true, false, false)
-			#pass
-		#2:
-			#%AchievementContainer.setAchievement(3)
-			#oneSecCooldown += 1
-		#3:
-			##%AchievementContainer.setAchievement(4)
-			##%PlayCardsContainer.set_card_cooldown(true, true, true)
-			#pass
-		#4:
-			#%AchievementContainer.setAchievement(6)
-	
-	# Check collection progress
-	if (float(collectionProgress) / float(full_deck.size()) > 0.5):
-		%AchievementContainer.setAchievement(2)
-		oneSecCooldown += 1
-	if (collectionProgress == 51):
-		%AchievementContainer.setAchievement(4)
-		onLastOne = true
-	if (collectionProgress == 52):
-		%AchievementContainer.setAchievement(5)
-		onLastOne = false
-	
-	# Processes draw cooldown reduction
-	%PlayCardsContainer.set_card_cooldown(float(oneSecCooldown) * 1.0)
+func changeRefund(delta: int):
+	refundValue += delta

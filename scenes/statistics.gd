@@ -17,14 +17,23 @@ func _process(delta: float) -> void:
 	$VBoxContainer/VBoxContainer/TimePlayedContainer/TimePlayedLabel.text = str(timeDict.hour) + ":" + str(timeDict.minute).pad_zeros(2) + ":" + str(timeDict.second).pad_zeros(2)
 	pass
 
+func save() -> Dictionary:
+	var save_dict = {
+		"time_played" : time_played,
+		"draws": draws,
+		"moneyEarned": moneyEarned,
+		"refunds": refunds,
+		"refundEarned": refundEarned
+	}
+	return save_dict
+
 func add_draws(value: int):
 	draws += value
 	$VBoxContainer/VBoxContainer/CardsDrawnContainer/CardsDrawnLabel.text = str(draws)
-	print(Time.get_time_dict_from_unix_time(time_played / 1000))
 
 func add_money_earned(value: int):
 	moneyEarned += value
-	$VBoxContainer/VBoxContainer/MoneyEarnedContainer/MoneyEarnedLabel.text = str(moneyEarned)
+	$VBoxContainer/VBoxContainer/MoneyEarnedContainer/MoneyEarnedLabel.text = "$" + str(moneyEarned)
 
 func add_refunds(value: int):
 	refunds += value
@@ -32,16 +41,4 @@ func add_refunds(value: int):
 
 func add_refunds_earned(value: int):
 	refundEarned += value
-	$VBoxContainer/VBoxContainer/RefundEarnedContainer/RefundEarnedLabel.text = str(refundEarned)
-
-func checkAchievements():
-	match draws:
-		5: # First draw
-			%AchievementContainer.setAchievement(0)
-			%CollectionButton.disabled = false
-			%AchievementButton.disabled = false
-			%StatisticsButton.disabled = false
-			%WorkButton.show()
-		15: # Three draws
-			%AchievementContainer.setAchievement(1)
-			%WorkButton.disabled = false
+	$VBoxContainer/VBoxContainer/RefundEarnedContainer/RefundEarnedLabel.text = "$" + str(refundEarned)

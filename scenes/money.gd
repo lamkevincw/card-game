@@ -15,6 +15,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func save() -> Dictionary:
+	var save_dict = {
+		"player_money" : player_money
+	}
+	return save_dict
+
 func change_money(delta: int):
 	player_money += delta
 	%PlayerMoneyLabel.text = str(player_money)

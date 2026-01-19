@@ -19,3 +19,6 @@ func set_texture(newTexture : Texture):
 
 func showRefund():
 	$RefundLabel.show()
+
+func changeRefundLabel(value: int):
+	$RefundLabel.text = "Refund $" + str(value)

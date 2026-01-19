@@ -13,7 +13,7 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0wfyh")
 
-[node name="Money" type="Node" parent="."]
+[node name="Money" type="Node" parent="." groups=["Persist"]]
 unique_name_in_owner = true
 script = ExtResource("3_jyhfs")
 player_money = 1000
@@ -56,6 +56,10 @@ text = "50"
 [node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
 
 [node name="Label3" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -128,7 +132,6 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_tbgi4")
-card_base_cooldown = 2.1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer"]
 layout_mode = 2
@@ -151,7 +154,7 @@ value = 100.0
 
 [node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
 layout_mode = 2
-text = "Keep Card"
+text = " "
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
@@ -163,7 +166,14 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Draw Cards - $10"
 
+[node name="AutomatePlayCardsCheckBox" type="CheckBox" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Automate Draws"
+
 [node name="PlayingCardDeck" type="Node" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" node_paths=PackedStringArray("cardContainer", "drawProgressBar", "playCardsCollection")]
+unique_name_in_owner = true
 script = ExtResource("2_jyhfs")
 cardContainer = NodePath("../VBoxContainer/CardContainer")
 drawProgressBar = NodePath("../VBoxContainer/DrawProgressBar")
@@ -250,10 +260,10 @@ horizontal_alignment = 1
 [node name="VBoxContainer5" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer"]
 layout_mode = 2
 
-[node name="UnlockRarityButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer5"]
+[node name="UnlockBuskButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer5"]
 layout_mode = 2
-text = "Unlock
-Rarity"
+text = "Unlock New Job
+in Work"
 
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer5"]
 layout_mode = 2
@@ -270,7 +280,7 @@ of Rare Cards by 5%"
 
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer6"]
 layout_mode = 2
-text = "Cost: $600"
+text = "Cost: $1000"
 horizontal_alignment = 1
 
 [node name="CollectionContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
@@ -302,7 +312,6 @@ columns = 13
 
 [node name="WorkContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("6_tipki")
@@ -322,6 +331,14 @@ size_flags_vertical = 3
 
 [node name="SearchMoneyContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="AutomateSearchCheckBox" type="CheckBox" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Unlocking the next job will unlock this automation"
+theme_override_font_sizes/font_size = 12
+disabled = true
+text = "Automate"
 
 [node name="SearchMoneyButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer"]
 unique_name_in_owner = true
@@ -361,7 +378,53 @@ unique_name_in_owner = true
 wait_time = 10.0
 one_shot = true
 
-[node name="AchievementContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
+[node name="BuskContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="AutomateBuskCheckBox" type="CheckBox" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+disabled = true
+text = "Automate"
+
+[node name="BuskButton" type="Button" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Busk for Money"
+
+[node name="BuskValue" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$100"
+
+[node name="BuskProgressBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+show_percentage = false
+
+[node name="BuskLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer/BuskProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "15.0 s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuskTimer" type="Timer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer"]
+unique_name_in_owner = true
+wait_time = 15.0
+one_shot = true
+
+[node name="AchievementContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer" groups=["Persist"]]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -389,8 +452,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 columns = 10
 
-[node name="StatisticsContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer"]
+[node name="StatisticsContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer" groups=["Persist"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_o6xl0")
@@ -451,7 +515,7 @@ layout_mode = 2
 
 [node name="MoneyEarnedLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/MoneyEarnedContainer"]
 layout_mode = 2
-text = "0"
+text = "$0"
 
 [node name="RefundCountContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -481,9 +545,20 @@ layout_mode = 2
 
 [node name="RefundEarnedLabel" type="Label" parent="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/StatisticsContainer/VBoxContainer/VBoxContainer/RefundEarnedContainer"]
 layout_mode = 2
-text = "0"
+text = "$0"
 
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/PanelContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/MarginContainer/DrawButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" method="_on_draw_button_pressed"]
+[connection signal="toggled" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/VBoxContainer/AutomatePlayCardsCheckBox" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" method="_on_check_box_toggled"]
 [connection signal="timeout" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer/DrawCardCooldownTimer" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/PlayCardsContainer" method="_on_draw_card_cooldown_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer/UnlockRarityButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer" method="_on_unlock_rarity_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer2/IncreaseRefundButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer" method="_on_increase_refund_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer4/DecreaseSearchCooldownButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer" method="_on_decrease_search_cooldown_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer3/DecreaseDrawCooldownButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer" method="_on_decrease_draw_cooldown_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer/VBoxContainer/UpgradesContainer/VBoxContainer5/UnlockBuskButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/UpgradesContainer" method="_on_unlock_busk_button_pressed"]
+[connection signal="toggled" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer/AutomateSearchCheckBox" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_automate_search_check_box_toggled"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer/SearchMoneyButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_search_money_button_pressed"]
 [connection signal="timeout" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/SearchMoneyContainer/SearchMoneyTimer" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_search_money_timer_timeout"]
+[connection signal="toggled" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer/AutomateBuskCheckBox" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_automate_busk_check_box_toggled"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer/BuskButton" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_busk_button_pressed"]
+[connection signal="timeout" from="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer/VBoxContainer/VBoxContainer/BuskContainer/BuskTimer" to="CanvasLayer/VBoxContainer/MainGameUI/HBoxContainer/WorkContainer" method="_on_busk_timer_timeout"]
